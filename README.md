@@ -1,4 +1,4 @@
-# evl-emu
+# evl-emu-docker
 
 This project is designed to allow Home Assistant to integrate with a DSC IT-100 integration module.  As it stands, there is no native IT-100 integration in HA yet, and this could still be useful in a situation where you don't have a serial port available to HA and would prefer an IP-based solution.
 
@@ -11,12 +11,31 @@ Note: This requires the ‘pyserial’ module for interacting with the serial po
 ---
 ### Emulator Setup
 
+
 #### Clone this repo
 
 ```
 cd $HOME
 git clone https://github.com/SolidElectronics/evl-emu.git
 ```
+
+---
+#### Docker Build
+docker build --build-arg RUN_PARAMS='--console' -t schmustang/evl-emu-docker:latest .
+docker push schmustang/evl-emu-docker:latest
+
+Set Environment Variables:
+
+* `SERIAL_PORT`
+* `SERIAL_BAUD`
+* `NETWORK_PORT`
+* `NETWORK_PORT`
+
+docker run -d --name='evl-emu-docker' --net='bridge' -e TZ="America/Regina" -e 'SERIAL_PORT'='/dev/ttyUSB1' \
+    --device='/dev/ttyUSB1' 'schmustang/evl-emu-docker:latest'
+
+---
+#### Direct Install
 - Change the baud rate and port in evl-emu.py to match your device
 - Change 'host' in the HomeAssistant envisalink.yaml to the emulator system's IP address.
 - Replace '/home/hass' in the examples below with the correct path for your system.

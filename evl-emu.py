@@ -24,10 +24,10 @@ REQUIREMENTS = ['pyserial']
 DEFAULT_PARTITIONS = 1
 DEFAULT_ZONES = 64
 
-SERIAL_PORT = '/dev/it100'
-SERIAL_BAUD = 9600
-NETWORK_HOST = '0.0.0.0'
-NETWORK_PORT = 4025
+SERIAL_PORT = os.environ.get('SERIAL_PORT', '/dev/it100')
+SERIAL_BAUD = os.environ.get('SERIAL_BAUD', 9600)
+NETWORK_HOST = os.environ.get('SERIAL_BAUD', '0.0.0.0')
+NETWORK_PORT = os.environ.get('SERIAL_BAUD', 4025)
 
 # Zone state definitions
 ZONE_OPEN = 0
